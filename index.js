@@ -10,10 +10,13 @@ app.set('view engine', 'ejs')
 app.use(layouts)
 app.use('/', express.static('static'))
 // Add any controllers
-
+app.use('/auth', require('./controllers/auth'))
 // Add home or catch-all routes
 app.get('/', (req, res) => {
     res.render('home')
+})
+app.get('*', (req, res) => {
+    res.render('error404')
 })
 
 app.listen(3002, () => {
