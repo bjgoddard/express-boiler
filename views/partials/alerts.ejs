@@ -1,0 +1,20 @@
+<% if (alerts && alerts.error) { %>
+    <div class="card-panel purple lighten-1 closeable">
+        <button class="close right red">
+            <h2>x</h2>
+        </button>
+    <% alerts.error.forEach(msg => { %>
+      <p><%= msg %></p>
+      <% }) %>
+    </div>
+<% } %>
+
+<div id="toast-container"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    M.toast({
+      html: '<%- alerts.error %>',
+      classes: 'red'
+    })
+  })
+</script>

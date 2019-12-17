@@ -1,34 +1,34 @@
-<h1>Signup</h1>
+<h2>hey</h2>
 <div class="row">
   <form method="POST" action="/auth/signup" class="col s12">
     <div class="row">
       <div class="input-field col s6">
-        <input id="firstname" type="string" class="validate" name="firstname">
+        <input id="firstname" type="string" class="validate" value="<%= data.firstname %>" name="firstname">
         <label for="firstname">First Name</label>
       </div>
       <div class="input-field col s6">
-        <input id="lastname" type="string" class="validate" name="lastname">
+        <input id="lastname" type="string" class="validate" value="<%= data.lastname %>"name="lastname">
         <label for="lastname">Last Name</label>
       </div>
   
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <input id="email" type="string" class="validate" name="email">
+        <input id="email" type="string" class="validate" value="<%= data.email %>"name="email">
         <label for="email">Email</label>
       </div>
       <div class="input-field col s6">
-        <input id="birthdate" type="date" class="datepicker validate" name="birthdate">
+        <input id="birthdate" type="date" class="datepicker validate"value="<%= data.birthdate %>" name="birthdate">
         <label for="birthdate">Birth Date</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <input id="photoURL" type="string" class="validate" name="photoURL">
-        <label for="profile">Profile Pic</label>
+        <input id="photo_url" type="string" class="validate" value="<%= data.photo_url%>" name="photo_url">
+        <label for="photo_url">Profile Pic</label>
       </div>
       <div class="input-field col s6">
-        <input id="bio" type="string" class="validate" name="bio">
+        <input id="bio" type="string" class="validate" value="<%= data.bio %>"name="bio">
         <label for="bio">Biography</label>
       </div>
     </div>
@@ -42,7 +42,7 @@
         <label for="password_verify">Password Verify</label>
       </div>
     </div>
-    <button class="btn waves-effect waves-light teal lighten-3" type="submit" name="action">Sign Up
+    <button class="btn waves-effect waves-light teal lighten-3" type="submit">Sign Up
       <i class="material-icons right"></i>
     </button>
   </form>
