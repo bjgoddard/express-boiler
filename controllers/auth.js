@@ -4,20 +4,27 @@ let router = require('express').Router()
 //Include  a reference to the models for db access
 let db = require('../models')
 
+//Reference to passport module
+let passport = require('../config/passportConfig')
+
 // Define the routes
 router.get('/login', (req, res) => {
     res.render('auth/login')
 })
 
-router.post('/login', (req, res) => {
-    res.send(req.body)
-})
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/profile',
+    successFlash: 'Yay, we logged in!',
+    failureRedirect: '/auth/login',
+    failureFlash: 'Invalid Credentials'
+}))
+
 
 router.get('/signup', (req, res) => {
     res.render('auth/signup', {data: {} })
 })
 
-router.post('/signup', (req, res) => {
+router.post('/signup', (req, res, next) => {
     if (req.body.password !== req.body.password_verify) {
         //User's password verification doesn't match - probably a typo 
         req.flash('error', 'Passwords do not match!')
@@ -33,9 +40,13 @@ router.post('/signup', (req, res) => {
             if (wasCreated) {
                 //This is intended user action
                 //Now autoomatically log in user to new acct
-                //TODO: Login the user
-                res.send('Successful Create User = Go look at DB')
-            }
+                passport.authenticate('local', {
+                    successRedirect: '/profile',
+                    successFlash: 'Yay, we logged in!',
+                    failureRedirect: '/auth/login',
+                    failureFlash: 'Invalid Credentials'
+            })(req, res, next)
+        }
             else {
                 //The user already has an account (probably forgot)
                 req.flash('error', 'Account already exists. Go Log in!')
@@ -44,6 +55,7 @@ router.post('/signup', (req, res) => {
         })
         .catch(err => {
             console.log('Error when creating a user', err)
+a
 
             //Check for validation errors (Okay for user to see)
             if (err.errors) {
@@ -64,7 +76,9 @@ router.post('/signup', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    res.send('GET auth/logout')
+    req.logout() //Throws away the session data of logged in user
+    req.flash('success', 'Goodbye - see you later alligator xDD')
+    res.redirect('/')
 })
 
 
